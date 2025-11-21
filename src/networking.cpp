@@ -49,6 +49,6 @@ void carConnectToPilot()
 
 pbuf* allocBuffer()
 {
-    return pbuf_alloc(PBUF_TRANSPORT, sizeof(int), PBUF_RAM);
+    return pbuf_alloc(PBUF_TRANSPORT, sizeof(pack), PBUF_RAM);
 }
     
