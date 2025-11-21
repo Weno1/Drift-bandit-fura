@@ -39,4 +39,8 @@ FUNCTIONS
 #error "!!! Can not be PILOT and CAR at the same time !!!"
 #endif
 
+#if !defined(PILOT) && !defined(CAR)
+#error "!!! Can not be both undefined at the same time !!!"
+#endif
+
 #endif /* CONFIG_HPP */
