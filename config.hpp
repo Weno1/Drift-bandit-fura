@@ -16,6 +16,8 @@ WIRELESS CONNECTION CONFIG
 
 *****************************/
 
+#define PICO_CYW43_ARCH_DEFAULT_COUNTRY_CODE CYW43_COUNTRY_POLAND
+
 #define PILOT_AP_SSID               "Drift-Bandit-Fura"
 #define PILOT_AP_PASSWD             "N6znW5<x@D,0ki(tkWR£'4_!&0TK{(w'[4p1s8A+pBID.g9CpL" //Random generated password, you can set your own.
 
@@ -26,8 +28,6 @@ WIRELESS CONNECTION CONFIG
 
 #define NETMASK                     "255.255.255.0"
 #define GATEWAY                     PILOT_IP
-
-
 
 /*****************************
 DO NOT EDIT 

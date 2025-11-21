@@ -1,3 +1,10 @@
+#include "pico/cyw43_arch.h"
+#include "lwip/inet.h"
+#include "lwip/netif.h"
+#include "pico/stdlib.h"
+
+#include "config.hpp"
+
 struct pack
 {
     uint8_t throtle;
