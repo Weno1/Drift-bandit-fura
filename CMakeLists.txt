@@ -62,7 +62,7 @@ target_link_libraries("${CMAKE_PROJECT_NAME}"
         pico_stdlib)
 
 # Add the standard include files to the build
-target_include_directories("${CMAKE_PROJECT_NAME}" PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include/")
+target_include_directories("${CMAKE_PROJECT_NAME}" PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include/" "${CMAKE_CURRENT_SOURCE_DIR}")
 
 # Add any user requested libraries
 target_link_libraries("${CMAKE_PROJECT_NAME}" 
