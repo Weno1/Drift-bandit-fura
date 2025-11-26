@@ -23,7 +23,7 @@ void wifiStaticConfig(char* ip_s, char* nm_s, char* gw_s) {
 
 void wifiInit()
 {
-    if (cyw43_arch_init())
+    if (cyw43_arch_init_with_country(COUNTRY))
         panic("Wi-Fi init failed\n");
 }
 
