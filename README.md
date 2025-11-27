@@ -42,6 +42,7 @@
 ├── config.hpp      # Configuration: Pin definitions, WiFi settings, and Role selection
 ├── CMakeLists.txt  # CMake build configuration
 └── LICENSE         # MIT License
+```
 
 ⚙️ Installation & Build
 
