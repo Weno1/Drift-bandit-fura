@@ -8,6 +8,7 @@
 - **Brushless Power**: High-speed drifting capabilities powered by a Brushless DC motor and ESC.
 - **Interactive Lighting**: Remotely controlled headlights, brake lights, and underglow.
 - **On-Demand Audio**: Sound effects triggered manually via remote buttons.
+- **OLED for telemetry**: Display battery charge level.
 - **Dual-Role Architecture**: A single codebase supporting both Pilot and Car modes via configuration.
 
 ## 🛠️ Hardware Requirements
@@ -19,8 +20,8 @@
   - 1x ESC (Electronic Speed Controller)
 - **Steering**: 1x Servo Motor
 - **Lighting**:
-  - White LEDs (Headlights)
-  - Red LEDs (Brake Lights)
+  - 2x White LEDs (Headlights) + 1x 180 Ohm resistor
+  - 2x Red LEDs (Brake Lights) + 1x 680 Ohm resistor
   - LED Strip / NeoPixels (Underglow)
 - **Audio**: Speaker or Buzzer (via PWM or Amplifier)
 - **Power**: Li-Po Battery (2S or 3S)
@@ -44,6 +45,52 @@
 
 ## ⚙️ Installation & Build
 
+## 🛠️ Building with Visual Studio Code
+
+You can also build the project using Visual Studio Code with the Raspberry Pi Pico project plugin. Follow these steps:
+
+### Prerequisites
+
+- **Visual Studio Code** installed.
+- **Raspberry Pi Pico Extension** for Visual Studio Code.
+- Ensure you have the same prerequisites as mentioned above (CMake, GCC for Arm, and Raspberry Pi Pico SDK).
+
+### Steps to Build
+
+1. **Open the Project**:
+   - Launch Visual Studio Code.
+   - Open the project folder (`Drift-bandit-fura`).
+
+2. **Install the Raspberry Pi Pico Extension**:
+   - Go to the Extensions view (`Ctrl+Shift+X`).
+   - Search for "Raspberry Pi Pico" and install the extension.
+
+3. **Configure the Project**:
+   - Open the Command Palette (`Ctrl+Shift+P`).
+   - Type and select `Pico: Configure Project`.
+   - This will create a `.vscode` folder with necessary configuration files.
+
+4. **Select the Role**:
+   - Open `config.hpp` and define whether you are compiling for the Car or the Pilot.
+   ```cpp
+   // config.hpp
+   //#define ROLE_CAR      // Uncomment for Car firmware
+   //#define ROLE_PILOT    // Uncomment for Pilot firmware
+   ```
+
+5. **Build the Project**:
+   - Open the Command Palette again (`Ctrl+Shift+P`).
+   - Type and select `Pico: Build Project`.
+   - The output will be shown in the terminal.
+
+6. **Flash the Firmware**:
+   - Hold the **BOOTSEL** button on your Pico 2 W while plugging it in.
+   - Drag and drop the generated `.uf2` file onto the **RPI-RP2** drive.
+
+### Note
+
+Make sure to have the correct board selected in the extension settings to match your Raspberry Pi Pico model.
+
 ### Prerequisites
 
 - **CMake** (3.13+)
@@ -61,8 +108,8 @@
 2. Configure the Role: Open `config.hpp` to define whether you are compiling for the Car or the Pilot.
    ```cpp
    // config.hpp
-   #define ROLE_CAR      // Uncomment for Car firmware
-   // #define ROLE_PILOT // Uncomment for Pilot firmware
+   //#define ROLE_CAR      // Uncomment for Car firmware
+   //#define ROLE_PILOT    // Uncomment for Pilot firmware
    ```
 
 3. Build the project:
