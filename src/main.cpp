@@ -45,7 +45,10 @@ int main()
     #endif              // ----------------- end -------------------
     #ifdef PILOT        // ----------------- PILOT main function -------------------
     
-
+    while(true)
+    {
+        cyw43_arch_poll();
+    }
 
     #endif              // ----------------- end -------------------
 

@@ -4,6 +4,8 @@
 #include "lwip/inet.h"
 #include "lwip/netif.h"
 #include "pico/stdlib.h"
+#include "lwip/sockets.h"
+#include "lwip/pbuf.h"
 
 #include "config.hpp"
 
@@ -40,8 +42,35 @@ void connectToPilot()
         printf("Connected.\n");
 }
 
-pbuf* allocBuffer()
+template <typename T>
+inline Coms<T>::Coms(ip_addr_t ip)
 {
-    return pbuf_alloc(PBUF_TRANSPORT, sizeof(pack), PBUF_RAM);
+    pcb = udp_new();
+    targetIp = ip;
+
+    buffer = pbuf_alloc(PBUF_TRANSPORT, sizeof(T), PBUF_RAM);
 }
-    
+
+template <typename T>
+Coms<T>::~Coms()
+{
+    pbuf_free(buffer);
+}
+
+template <typename T>
+void Coms<T>::send(T data)
+{
+    T* p = (T *)buffer->payload;
+    *p = data;
+
+    err_t er = udp_sendto(pcb, p, &targetIp, PILOT_LISTEN_PORT);
+
+    if (er != ERR_OK)
+        error_count++;
+}
+
+template <typename T>
+uint16_t Coms<T>::getErrorCount()
+{
+    return error_count;
+}

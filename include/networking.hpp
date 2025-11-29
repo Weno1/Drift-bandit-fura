@@ -2,6 +2,8 @@
 #include "lwip/inet.h"
 #include "lwip/netif.h"
 #include "pico/stdlib.h"
+#include "lwip/sockets.h"
+#include "lwip/pbuf.h"
 
 #include "config.hpp"
 
@@ -18,11 +20,27 @@ void wifiInit();
 
 void connectToPilot();
 
-class communication
+template <typename T>
+class Coms
 {
     public:
 
-    private:
+    Coms(ip_addr_t ip);
+    Coms(const Coms&) = delete;
+	Coms& operator=(const Coms&) = delete;
+    ~Coms();
 
-    pbuf* buffer;
+    void send(T data);
+    uint16_t getErrorCount();
+
+    private:
+    udp_pcb* pcb;
+    
+    ip_addr_t targetIp;
+
+    pbuf *buffer = nullptr;
+
+    uint16_t error_count = 0;
 };
+
+
