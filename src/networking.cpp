@@ -7,7 +7,8 @@
 
 #include "config.hpp"
 
-void wifiStaticConfig(char* ip_s, char* nm_s, char* gw_s) {
+void wifiStaticConfig(char* ip_s, char* nm_s, char* gw_s)
+{
     cyw43_arch_lwip_begin();
 
     // Parse string IPs into ip4_addr_t and pass pointers to netif_set_addr
@@ -27,7 +28,7 @@ void wifiInit()
         panic("Wi-Fi init failed\n");
 }
 
-void carConnectToPilot()
+void connectToPilot()
 {
     cyw43_arch_enable_sta_mode();
 

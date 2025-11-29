@@ -16,6 +16,13 @@ void wifiStaticConfig(char* ip_s, char* nm_s, char* gw_s);
 
 void wifiInit();
 
-void carConnectToPilot();
+void connectToPilot();
 
-pbuf* allocBuffer();
+class communication
+{
+    public:
+
+    private:
+
+    pbuf* buffer;
+};

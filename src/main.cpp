@@ -7,17 +7,18 @@
 #include "config.hpp"
 #include "networking.hpp"
 
-#ifdef CAR
 
 int main()
 {
     stdio_init_all();
     printf("Program staring...\n");
 
+    #ifdef CAR      // ----------------- CAR main function -------------------
+
     // Initialise the Wi-Fi chip
     wifiInit();
 
-    carConnectToPilot();
+    connectToPilot();
 
     // int pap = 2137;
 
@@ -40,9 +41,14 @@ int main()
     {
         cyw43_arch_poll();
     }
+
+    #endif              // ----------------- end -------------------
+    #ifdef PILOT        // ----------------- PILOT main function -------------------
     
+
+
+    #endif              // ----------------- end -------------------
+
     cyw43_arch_deinit();
     return 0;
 }
-
-#endif
