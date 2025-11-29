@@ -35,10 +35,10 @@ class Coms
 
     private:
     udp_pcb* pcb;
-    
+
     ip_addr_t targetIp;
 
-    pbuf *buffer = nullptr;
+    pbuf* buffer = nullptr;
 
     uint16_t error_count = 0;
 };
