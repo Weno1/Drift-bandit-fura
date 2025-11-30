@@ -4,8 +4,6 @@
 #include "lwip/inet.h"
 #include "lwip/netif.h"
 #include "pico/stdlib.h"
-#include "lwip/sockets.h"
-#include "lwip/pbuf.h"
 #include "hardware/adc.h"
 #include "hardware/pwm.h"
 #include "hardware/spi.h"
@@ -51,8 +49,11 @@ void initGPIO()
 
     //init io
     gpio_init(HEADLIGHTS);
+    gpio_set_dir(HEADLIGHTS, GPIO_OUT);
     gpio_init(BRAKELIGHTS);
+    gpio_set_dir(BRAKELIGHTS, GPIO_OUT);
     gpio_init(UNDERGLOW);
+    gpio_set_dir(UNDERGLOW, GPIO_OUT);
 
     //init pwm outputs
     gpio_set_function(MOTOR_SIG, GPIO_FUNC_PWM);
