@@ -5,7 +5,7 @@
 #include "lwip/inet.h"
 
 #include "config.hpp"
-#include "networking.hpp"
+#include "util.hpp"
 
 
 int main()
@@ -16,26 +16,11 @@ int main()
     #ifdef CAR      // ----------------- CAR main function -------------------
 
     // Initialise the Wi-Fi chip
-    wifiInit();
+    cyw43Init();
 
     connectToPilot();
 
-    // int pap = 2137;
-
-    // struct udp_pcb* pcb = udp_new();
-    // ip_addr_t host;
     // ipaddr_aton(PILOT_IP, &host);
-
-    // struct pbuf *p = pbuf_alloc(PBUF_TRANSPORT, sizeof(int), PBUF_RAM);
-    // int* req = (int *)p->payload;
-    // *req = pap;
-    // err_t er = udp_sendto(pcb, p, &host, PILOT_LISTEN_PORT);
-    // pbuf_free(p);
-
-    // if (er != ERR_OK)
-    // {
-    //     printf("Failed to send UDP packet! error=%d", er);
-    // }
 
     while(true)
     {

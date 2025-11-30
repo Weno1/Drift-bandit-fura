@@ -7,8 +7,31 @@ DEVICE SELECTION
 
 *****************************/
 
-//#define PILOT
-#define CAR
+#define PILOT
+//#define CAR
+
+/*****************************
+
+CAR PIN CONFIGURATION
+
+*****************************/
+
+#define MOTOR_SIG                   0
+#define STER_SIG                    1
+
+#define HEADLIGHTS                  2
+#define BRAKELIGHTS                 3
+#define UNDERGLOW                   4
+
+#define SD_SPI                      spi0
+#define SD_MISO                     16
+#define SD_CS                       17
+#define SC_SCK                      18
+#define SD_MOSI                     19
+
+#define AUDIO_SIG                   15
+
+#define BATT_V                      26
 
 /*****************************
 
@@ -23,11 +46,22 @@ WIRELESS CONNECTION CONFIG
 
 #define PILOT_LISTEN_PORT           3404
 
-#define PILOT_IP                    "192.168.4.1"
-#define CAR_IP                      "192.168.4.2"
+#define PILOT_IP                    (char*) "192.168.4.1"
+#define CAR_IP                      (char*) "192.168.4.2"
 
-#define NETMASK                     "255.255.255.0"
+#define NETMASK                     (char*) "255.255.255.0"
 #define GATEWAY                     PILOT_IP
+
+/*****************************
+
+ADVANCED CONFIG
+
+*****************************/
+
+#define SD_SPI_SPEED                1'000'000
+
+#define BATT_V_R1                   20000.0f
+#define BATT_V_R2                   6800.0f
 
 /*****************************
 DO NOT EDIT 

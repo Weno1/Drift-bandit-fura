@@ -1,3 +1,6 @@
+#ifndef COMS_HPP
+#define COMS_HPP
+
 #include "pico/cyw43_arch.h"
 #include "lwip/inet.h"
 #include "lwip/netif.h"
@@ -6,19 +9,6 @@
 #include "lwip/pbuf.h"
 
 #include "config.hpp"
-
-struct pack
-{
-    uint8_t throtle;
-    uint8_t yaw;
-    uint16_t cmd;
-};
-
-void wifiStaticConfig(char* ip_s, char* nm_s, char* gw_s);
-
-void wifiInit();
-
-void connectToPilot();
 
 template <typename T>
 class Coms
@@ -38,9 +28,10 @@ class Coms
 
     ip_addr_t targetIp;
 
-    pbuf* buffer = nullptr;
+    pbuf* sendBuffer = nullptr;
+    pbuf* recvBuffer = nullptr;
 
     uint16_t error_count = 0;
 };
 
-
+#endif /* COMS_HPP */

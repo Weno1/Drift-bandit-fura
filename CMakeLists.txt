@@ -68,6 +68,8 @@ target_include_directories("${CMAKE_PROJECT_NAME}" PUBLIC "${CMAKE_CURRENT_SOURC
 target_link_libraries("${CMAKE_PROJECT_NAME}" 
         pico_cyw43_arch_lwip_poll
         hardware_pwm
+        hardware_adc
+        hardware_spi
 )
 
 string(APPEND CMAKE_EXE_LINKER_FLAGS "-Wl,--print-memory-usage")
