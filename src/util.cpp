@@ -77,7 +77,7 @@ uint16_t readBattRaw()
     return adc_read();
 }
 
-void connectToPilot()
+void setupConnection()
 {
     cyw43_arch_enable_sta_mode();
 
@@ -87,6 +87,8 @@ void connectToPilot()
         panic("failed to connect.\n");
     else
         printf("Connected.\n");
+
+    configNet(CAR_IP, NETMASK, GATEWAY);
 }
 
 #endif

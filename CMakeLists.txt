@@ -70,6 +70,7 @@ target_link_libraries("${CMAKE_PROJECT_NAME}"
         hardware_pwm
         hardware_adc
         hardware_spi
+        hardware_i2c
 )
 
 string(APPEND CMAKE_EXE_LINKER_FLAGS "-Wl,--print-memory-usage")

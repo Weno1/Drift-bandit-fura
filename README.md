@@ -38,6 +38,7 @@
 
 ```text
 ├── include/        # Header files and helper functions
+├── resources/      # Images for README
 ├── src/            # Main source code for Car and Pilot logic
 ├── config.hpp      # Configuration: Pin definitions, WiFi settings, and Role selection
 ├── CMakeLists.txt  # CMake build configuration

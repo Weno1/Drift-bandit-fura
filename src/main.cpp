@@ -6,37 +6,38 @@
 
 #include "config.hpp"
 #include "util.hpp"
-#include "Coms.hpp"
-
+#include "ComsClient.hpp"
 
 int main()
 {
     stdio_init_all();
     printf("Program staring...\n");
 
-    #ifdef CAR      // ----------------- CAR main function -------------------
-
     // Initialise the Wi-Fi chip
     cyw43Init();
 
-    connectToPilot();
+#ifdef CAR      // ----------------- CAR main function -------------------
 
-    // ipaddr_aton(PILOT_IP, &host);
+    set_sys_clock_khz(176000, true); // change frequency for audio pwm clock division
+
+    initGPIO()
+
+    setupConnection();
 
     while(true)
     {
         cyw43_arch_poll();
     }
 
-    #endif              // ----------------- end -------------------
-    #ifdef PILOT        // ----------------- PILOT main function -------------------
+#endif              // ----------------- end -------------------
+#ifdef PILOT        // ----------------- PILOT main function -------------------
     
     while(true)
     {
         cyw43_arch_poll();
     }
 
-    #endif              // ----------------- end -------------------
+#endif              // ----------------- end -------------------
 
     cyw43_arch_deinit();
     return 0;

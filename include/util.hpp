@@ -31,20 +31,20 @@ void cyw43Init();
 
 #ifdef CAR
 
-void initGPIO();
+    void initGPIO();
 
-uint16_t readBattRaw();
+    uint16_t readBattRaw();
 
-void connectToPilot();
+    void setupConnection();
 
 #endif
 #ifdef PILOT
 
-void initGPIO();
+    void initGPIO();
 
-float rawToBattV(uint16_t x);
+    float rawToBattV(uint16_t x);
 
-void setupAP();
+    void setupAP();
 
 #endif
 

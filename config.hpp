@@ -35,6 +35,24 @@ CAR PIN CONFIGURATION
 
 /*****************************
 
+PILOT PIN CONFIGURATION
+
+*****************************/
+
+#define THROTLE_INPUT               26
+#define STER_INPUT                  26
+
+#define SW1                         0
+#define SW2                         1
+#define SW3                         2
+#define SW4                         3
+
+#define OLED_I2C                    i2c0
+#define OLED_SDA                    16
+#define OLED_SCL                    17
+
+/*****************************
+
 WIRELESS CONNECTION CONFIG
 
 *****************************/
@@ -45,6 +63,7 @@ WIRELESS CONNECTION CONFIG
 #define PILOT_AP_PASSWD             "N6znW5<x@D,0ki(tkWR£'4_!&0TK{(w'[4p1s8A+pBID.g9CpL" //Random generated password, you can set your own.
 
 #define PILOT_LISTEN_PORT           3404
+#define CAR_LISTEN_PORT             59000
 
 #define PILOT_IP                    (char*) "192.168.4.1"
 #define CAR_IP                      (char*) "192.168.4.2"
