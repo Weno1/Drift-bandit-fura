@@ -31,6 +31,7 @@
 - **Input**: 
   - Analog Joystick (Steering & Throttle)
   - Push Buttons (Light toggles & Sound triggers)
+- **Display**: OLED SSD1306 display (telemetry and pilot battery voltage)
 - **Power**: Portable power bank or Li-Ion battery
 
 ## 📂 Project Structure
