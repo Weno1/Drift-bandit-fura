@@ -21,7 +21,9 @@ CAR PIN CONFIGURATION
 
 #define HEADLIGHTS                  2
 #define BRAKELIGHTS                 3
-#define UNDERGLOW                   4
+#define UNDERGLOW_R                 20
+#define UNDERGLOW_G                 21
+#define UNDERGLOW_B                 22
 
 #define SD_SPI                      spi0
 #define SD_MISO                     16

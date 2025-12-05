@@ -52,8 +52,12 @@ void initGPIO()
     gpio_set_dir(HEADLIGHTS, GPIO_OUT);
     gpio_init(BRAKELIGHTS);
     gpio_set_dir(BRAKELIGHTS, GPIO_OUT);
-    gpio_init(UNDERGLOW);
-    gpio_set_dir(UNDERGLOW, GPIO_OUT);
+    gpio_init(UNDERGLOW_R);
+    gpio_set_dir(UNDERGLOW_R, GPIO_OUT);
+    gpio_init(UNDERGLOW_G);
+    gpio_set_dir(UNDERGLOW_G, GPIO_OUT);
+    gpio_init(UNDERGLOW_B);
+    gpio_set_dir(UNDERGLOW_B, GPIO_OUT);
 
     //init pwm outputs
     gpio_set_function(MOTOR_SIG, GPIO_FUNC_PWM);
