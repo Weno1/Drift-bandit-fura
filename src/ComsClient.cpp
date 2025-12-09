@@ -48,7 +48,7 @@ uint16_t ComsClient<T>::getErrorCount()
 }
 
 template <typename T>
-void ComsClient<T>::staticRecvCallback(void *arg, udp_pcb *pcb, pbuf *p, const ip_addr_t *addr, u16_t port)
+void ComsClient<T>::staticRecvCallback(void *arg, udp_pcb *pcb, pbuf *p, ip_addr_t *addr, u16_t port)
 {
     ComsClient<T>* self = static_cast<ComsClient<T>*>(arg);
     

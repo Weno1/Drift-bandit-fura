@@ -42,7 +42,7 @@ PILOT PIN CONFIGURATION
 *****************************/
 
 #define THROTLE_INPUT               26
-#define STER_INPUT                  26
+#define STER_INPUT                  27
 
 #define SW1                         0
 #define SW2                         1
@@ -80,6 +80,8 @@ ADVANCED CONFIG
 *****************************/
 
 #define SD_SPI_SPEED                1'000'000
+
+#define OLCD_I2C_SPEED               400'000
 
 #define BATT_V_R1                   20000.0f
 #define BATT_V_R2                   6800.0f

@@ -29,9 +29,13 @@ int main()
         cyw43_arch_poll();
     }
 
-#endif              // ----------------- end -------------------
+#endif              // ------------------------- end ---------------------------
 #ifdef PILOT        // ----------------- PILOT main function -------------------
     
+    initGPIO();
+
+    setupAP();
+
     while(true)
     {
         cyw43_arch_poll();

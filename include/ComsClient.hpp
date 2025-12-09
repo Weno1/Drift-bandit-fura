@@ -26,9 +26,9 @@ public:
     T getData() { dataAvailable = false; return lastReceivedData; }
 
 private:
-    void staticRecvCallback(void *arg, struct udp_pcb *pcb, struct pbuf *p, const ip_addr_t *addr, u16_t port);
+    void staticRecvCallback(void* arg, udp_pcb* pcb, pbuf* p, ip_addr_t* addr, u16_t port);
 
-    void handlePacket(struct pbuf *p, const ip_addr_t *addr, u16_t port);
+    void handlePacket(pbuf *p, const ip_addr_t *addr, u16_t port);
 
     ip_addr_t lastRecivedFrom;
     T lastReceivedData;

@@ -7,6 +7,7 @@
 #include "hardware/adc.h"
 #include "hardware/pwm.h"
 #include "hardware/spi.h"
+#include "hardware/i2c.h"
 
 #include "config.hpp"
 
@@ -100,7 +101,31 @@ void setupConnection()
 
 void initGPIO()
 {
+    adc_init();
+    adc_gpio_init(THROTLE_INPUT);
+    adc_gpio_init(STER_INPUT);
 
+    gpio_init(SW1);
+    gpio_set_dir(SW1, GPIO_IN);
+    gpio_pull_down(SW1);
+
+    gpio_init(SW2);
+    gpio_set_dir(SW2, GPIO_IN);
+    gpio_pull_down(SW2);
+
+    gpio_init(SW3);
+    gpio_set_dir(SW3, GPIO_IN);
+    gpio_pull_down(SW3);
+
+    gpio_init(SW4);
+    gpio_set_dir(SW4, GPIO_IN);
+    gpio_pull_down(SW4);
+
+    i2c_init(OLED_I2C, OLCD_I2C_SPEED);
+    gpio_set_function(OLED_SCL, GPIO_FUNC_I2C);
+    gpio_set_function(OLED_SDA, GPIO_FUNC_I2C);
+    gpio_pull_up(OLED_SCL);
+    gpio_pull_up(OLED_SDA);
 }
 
 float rawToBattV(uint16_t x)
