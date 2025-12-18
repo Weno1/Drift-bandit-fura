@@ -86,6 +86,8 @@ ADVANCED CONFIG
 #define BATT_V_R1                   20000.0f
 #define BATT_V_R2                   6800.0f
 
+#define CAR_CLOCK_KHZ               176'000
+
 /*****************************
 DO NOT EDIT 
 

@@ -61,8 +61,6 @@ void initGPIO()
     gpio_set_dir(UNDERGLOW_B, GPIO_OUT);
 
     //init pwm outputs
-    gpio_set_function(MOTOR_SIG, GPIO_FUNC_PWM);
-    gpio_set_function(STER_SIG, GPIO_FUNC_PWM);
     gpio_set_function(AUDIO_SIG, GPIO_FUNC_PWM);
 
     //init spi

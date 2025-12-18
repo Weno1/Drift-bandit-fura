@@ -18,7 +18,7 @@ int main()
 
 #ifdef CAR      // ----------------- CAR main function -------------------
 
-    set_sys_clock_khz(176000, true); // change frequency for audio pwm clock division
+    set_sys_clock_khz(CAR_CLOCK_KHZ, true); // change frequency for audio pwm clock division
 
     initGPIO()
 
