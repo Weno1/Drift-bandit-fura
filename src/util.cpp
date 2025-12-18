@@ -10,6 +10,7 @@
 #include "hardware/i2c.h"
 
 #include "config.hpp"
+#include "servo.hpp"
 
 void adc_select_gpio(uint gpio)
 {

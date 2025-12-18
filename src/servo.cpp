@@ -12,7 +12,7 @@ Servo::Servo(uint8_t pin)
     slice = pwm_gpio_to_slice_num(pin);
     channel = pwm_gpio_to_channel(pin);
 
-    float div = (float)clock_get_hz(clk_sys) / 1'000'000.f;
+    float div = (float) clock_get_hz(clk_sys) / 1'000'000.0f;
 
     pwm_config config = pwm_get_default_config();
     pwm_config_set_clkdiv(&config, div);
