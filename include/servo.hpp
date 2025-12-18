@@ -19,7 +19,7 @@ private:
     uint slice;
     uint channel;
 
-    uint16_t level;
+    uint16_t level = 0;
 
     uint16_t min = 800, max = 2200;
 
