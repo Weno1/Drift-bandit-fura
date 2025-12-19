@@ -1,5 +1,4 @@
-#ifndef COMSSERVER_HPP
-#define COMSSERVER_HPP
+#pragma once
 
 class ComsServer
 {
@@ -11,4 +10,3 @@ private:
     /* data */
 };
 
-#endif

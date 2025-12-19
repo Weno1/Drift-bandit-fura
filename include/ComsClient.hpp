@@ -1,5 +1,4 @@
-#ifndef COMSCLIENT_HPP
-#define COMSCLIENT_HPP
+#pragma once
 
 #include "pico/cyw43_arch.h"
 #include "lwip/inet.h"
@@ -43,4 +42,3 @@ private:
     uint16_t error_count = 0;
 };
 
-#endif /* COMSCLIENT_HPP */

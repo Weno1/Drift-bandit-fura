@@ -1,5 +1,4 @@
-#ifndef UTIL_HPP
-#define UTIL_HPP
+#pragma once
 
 #include "pico/cyw43_arch.h"
 #include "lwip/inet.h"
@@ -47,5 +46,3 @@ void cyw43Init();
     void setupAP();
 
 #endif
-
-#endif /* UTIL_HPP */
