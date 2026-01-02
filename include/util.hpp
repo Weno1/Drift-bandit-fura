@@ -9,14 +9,14 @@
 
 #include "config.hpp"
 
-struct pack
+struct __attribute__((packed)) pack
 {
     uint8_t throtle;
     uint8_t yaw;
     uint16_t cmd;
 };
 
-struct tlmPack
+struct __attribute__((packed)) tlmPack
 {
     uint16_t cmd;
     uint16_t rawBattV;

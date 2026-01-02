@@ -6,7 +6,7 @@
 
 #include "config.hpp"
 #include "util.hpp"
-#include "ComsClient.hpp"
+#include "udpSocket.hpp"
 #include "Servo.hpp"
 
 int main()
@@ -28,6 +28,8 @@ int main()
     while(true)
     {
         cyw43_arch_poll();
+
+        
     }
 
 #endif              // ------------------------- end ---------------------------
@@ -37,9 +39,15 @@ int main()
 
     setupAP();
 
+    UdpSocket sock;
+
+    sock.bind(PILOT_LISTEN_PORT);
+
     while(true)
     {
         cyw43_arch_poll();
+
+
     }
 
 #endif              // ------------------------- end ---------------------------
