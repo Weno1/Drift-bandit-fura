@@ -5,6 +5,11 @@
 #include "hardware/clocks.h"
 #include "hardware/pwm.h"
 
+uint16_t map(uint16_t x, uint16_t in_min, uint16_t in_max, uint16_t out_min, uint16_t out_max)
+{
+    return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+}
+
 Servo::Servo(uint8_t pin)
 {
     gpio_set_function(pin, GPIO_FUNC_PWM);
@@ -44,7 +49,3 @@ uint16_t Servo::read()
     return level;
 }
 
-uint16_t Servo::map(uint16_t x, uint16_t in_min, uint16_t in_max, uint16_t out_min, uint16_t out_max)
-{
-    return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
-}

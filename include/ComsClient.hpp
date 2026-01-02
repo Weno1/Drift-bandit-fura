@@ -19,7 +19,6 @@ public:
 
     void send(T data);
     uint16_t getErrorCount();
-    void recvCallback();
 
     bool hasData() { return dataAvailable; }
     T getData() { dataAvailable = false; return lastReceivedData; }

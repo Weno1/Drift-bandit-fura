@@ -7,6 +7,7 @@
 #include "config.hpp"
 #include "util.hpp"
 #include "ComsClient.hpp"
+#include "Servo.hpp"
 
 int main()
 {
@@ -16,7 +17,7 @@ int main()
     // Initialise the Wi-Fi chip
     cyw43Init();
 
-#ifdef CAR      // ----------------- CAR main function -------------------
+#ifdef CAR          // ----------------- CAR main function ---------------------
 
     set_sys_clock_khz(CAR_CLOCK_KHZ, true); // change frequency for audio pwm clock division
 
@@ -41,7 +42,7 @@ int main()
         cyw43_arch_poll();
     }
 
-#endif              // ----------------- end -------------------
+#endif              // ------------------------- end ---------------------------
 
     cyw43_arch_deinit();
     return 0;

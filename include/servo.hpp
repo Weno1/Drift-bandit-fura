@@ -3,6 +3,8 @@
 #include <stdio.h>
 #include "pico/stdlib.h"
 
+uint16_t map(uint16_t x, uint16_t in_min, uint16_t in_max, uint16_t out_min, uint16_t out_max);
+
 class Servo
 {
 public:
@@ -21,7 +23,5 @@ private:
     uint16_t level = 0;
 
     uint16_t min = 800, max = 2200;
-
-    uint16_t map(uint16_t x, uint16_t in_min, uint16_t in_max, uint16_t out_min, uint16_t out_max);
 };
 
