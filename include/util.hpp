@@ -9,17 +9,17 @@
 
 #include "config.hpp"
 
-struct __attribute__((packed)) pack
+struct __attribute__((packed)) Pack
 {
     uint8_t throtle;
     uint8_t yaw;
     uint16_t cmd;
 };
 
-struct __attribute__((packed)) tlmPack
+struct __attribute__((packed)) TlmPack
 {
-    uint16_t cmd;
     uint16_t rawBattV;
+    uint16_t cmd;
 };
 
 void adc_select_gpio(uint gpio);
@@ -31,8 +31,6 @@ void cyw43Init();
 #ifdef CAR
 
     void initGPIO();
-
-    uint16_t readBattRaw();
 
     void setupConnection();
 

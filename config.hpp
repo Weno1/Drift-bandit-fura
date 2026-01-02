@@ -7,8 +7,8 @@ DEVICE SELECTION
 
 *****************************/
 
-#define PILOT
-//#define CAR
+//#define PILOT
+#define CAR
 
 /*****************************
 
@@ -81,12 +81,14 @@ ADVANCED CONFIG
 
 #define SD_SPI_SPEED                1'000'000
 
-#define OLCD_I2C_SPEED               400'000
+#define OLCD_I2C_SPEED              400'000
 
 #define BATT_V_R1                   20000.0f
 #define BATT_V_R2                   6800.0f
 
 #define CAR_CLOCK_KHZ               176'000
+
+#define TELEMETRY_EVERY_US          100'000
 
 /*****************************
 DO NOT EDIT 

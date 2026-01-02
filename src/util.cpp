@@ -76,11 +76,6 @@ void initGPIO()
     gpio_put(SD_CS, 1);
 }
 
-uint16_t readBattRaw()
-{
-    return adc_read();
-}
-
 void setupConnection()
 {
     cyw43_arch_enable_sta_mode();

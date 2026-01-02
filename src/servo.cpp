@@ -39,7 +39,7 @@ void Servo::disable()
 
 void Servo::write(uint8_t x)
 {
-    level = map((uint16_t)x, 0, 255, min, max);
+    level = map((uint16_t) x, 0, 255, min, max);
 
     pwm_set_chan_level(slice, channel, level);
 }

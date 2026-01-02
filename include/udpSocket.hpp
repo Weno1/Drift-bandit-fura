@@ -1,21 +1,21 @@
 #pragma once
 
-#include <string>
-#include <cstring>
 #include <optional>
 #include "pico/cyw43_arch.h"
 #include "pico/util/queue.h"
 #include "lwip/udp.h"
 
-// T is the struct or data type you want to send/receive
 template <typename T>
-class UdpSocket {
+class UdpSocket
+{
 public:
-    explicit UdpSocket(uint queueDepth = 10) : m_pcb(nullptr) {
+    explicit UdpSocket(uint queueDepth = 10) : m_pcb(nullptr)
+    {
         queue_init(&m_queue, sizeof(T), queueDepth);
     }
 
-    ~UdpSocket() {
+    ~UdpSocket()
+    {
         close();
         queue_free(&m_queue);
     }
@@ -25,6 +25,7 @@ public:
         if (m_pcb) close();
 
         cyw43_arch_lwip_begin();
+
         m_pcb = udp_new();
         
         if (m_pcb)
@@ -41,6 +42,7 @@ public:
             }
         }
         cyw43_arch_lwip_end();
+
         return (m_pcb != nullptr);
     }
 
@@ -49,24 +51,24 @@ public:
         if (m_pcb)
         {
             cyw43_arch_lwip_begin();
+
             udp_remove(m_pcb);
             m_pcb = nullptr;
+
             cyw43_arch_lwip_end();
         }
     }
 
-    bool send(const std::string& targetIp, uint16_t targetPort, const void* data, size_t len)
+    bool send(const char* targetIp, uint16_t targetPort, const void* data, size_t len)
     {
         if (!m_pcb) return false;
 
         ip_addr_t destAddr;
-        if (!ipaddr_aton(targetIp.c_str(), &destAddr)) return false;
+        if (!ipaddr_aton(targetIp, &destAddr)) return false;
 
-        // Allocate PBUF_RAM for TX
         struct pbuf* p = pbuf_alloc(PBUF_TRANSPORT, len, PBUF_RAM);
         if (!p) return false;
 
-        // Copy data to pbuf
         memcpy(p->payload, data, len);
 
         cyw43_arch_lwip_begin();
@@ -78,7 +80,7 @@ public:
     }
 
     template <typename U>
-    bool send(const std::string& targetIp, uint16_t targetPort, const U& data)
+    bool send(const char* targetIp, uint16_t targetPort, const U& data)
     {
         return send(targetIp, targetPort, &data, sizeof(U));
     }
