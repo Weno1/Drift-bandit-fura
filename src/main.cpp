@@ -68,9 +68,11 @@ int main()
 
             tlm.cmd = 0;    // Update required
 
-            sock.send<TlmPack>(PILOT_IP, PILOT_LISTEN_PORT, tlm);
+            bool err = sock.send<TlmPack>(PILOT_IP, PILOT_LISTEN_PORT, tlm);
         }
     }
+
+    sock.close();
 
 #endif              // ------------------------- end ---------------------------
 #ifdef PILOT        // ----------------- PILOT main function -------------------
@@ -99,6 +101,8 @@ int main()
 
         bool err = sock.send<Pack>(CAR_IP, CAR_LISTEN_PORT, pack);
     }
+
+    sock.close();
 
 #endif              // ------------------------- end ---------------------------
 
