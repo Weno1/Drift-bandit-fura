@@ -8,11 +8,14 @@
 #include "hardware/pwm.h"
 #include "hardware/spi.h"
 #include "hardware/i2c.h"
+#include "hardware/watchdog.h"
 
 #include "config.hpp"
 #include "servo.hpp"
 
-void adc_select_gpio(uint gpio)
+#include "logging.hpp"
+
+void adcSelectGpio(uint gpio)
 {
     if (gpio >= 26 && gpio <= 29)
         adc_select_input(gpio - 26);
@@ -37,17 +40,32 @@ void configNet(char* ip_s, char* nm_s, char* gw_s)
 void cyw43Init()
 {
     if (cyw43_arch_init_with_country(COUNTRY))
-        panic("Wi-Fi init failed\n");
+        LOG_ERROR("Wi-Fi init failed\n");
+}
+
+void setLED(bool state)
+{
+    cyw43_arch_gpio_put(CYW43_WL_GPIO_LED_PIN, state);
+}
+
+void softwareReset()
+{
+    watchdog_reboot(0, 0, 0);
+    
+    while(true)
+        tight_loop_contents();
 }
 
 #ifdef CAR
 
 void initGPIO()
 {
+    LOG_INFO("initiaziling GPIO...");
+
     // init adc
     adc_init();
     adc_gpio_init(BATT_V);
-    adc_select_gpio(BATT_V);
+    adcSelectGpio(BATT_V);
 
     //init io
     gpio_init(HEADLIGHTS);
@@ -74,20 +92,32 @@ void initGPIO()
     gpio_init(SD_CS);
     gpio_set_dir(SD_CS, GPIO_OUT);
     gpio_put(SD_CS, 1);
+
+    LOG_INFO("GPIO initialized...");
 }
 
 void setupConnection()
 {
+    cyw43Init();
+
     cyw43_arch_enable_sta_mode();
 
-    printf("Connecting to Wi-Fi...\n");
+    LOG_INFO("Connecting to Wi-Fi...");
 
-    if (cyw43_arch_wifi_connect_blocking(PILOT_AP_SSID, PILOT_AP_PASSWD, CYW43_AUTH_WPA2_AES_PSK))
-        panic("failed to connect.\n");
+    if (cyw43_arch_wifi_connect_timeout_ms(PILOT_AP_SSID, PILOT_AP_PASSWD, CYW43_AUTH_WPA2_AES_PSK, CONNECT_TIMEOUT))
+    {
+        LOG_ERROR("Failed to connect.");
+        softwareReset();
+    }
     else
-        printf("Connected.\n");
+    {
+        setLED(1);
+        LOG_INFO("Connected.");
+    }
 
     configNet(CAR_IP, NETMASK, GATEWAY);
+
+    LOG_INFO("WIFI initialized");
 }
 
 #endif
@@ -95,10 +125,14 @@ void setupConnection()
 
 void initGPIO()
 {
+    LOG_INFO("initiaziling GPIO...");
+
+    // init adc
     adc_init();
     adc_gpio_init(THROTLE_INPUT);
     adc_gpio_init(STER_INPUT);
 
+    //init io
     gpio_init(SW1);
     gpio_set_dir(SW1, GPIO_IN);
     gpio_pull_down(SW1);
@@ -115,11 +149,14 @@ void initGPIO()
     gpio_set_dir(SW4, GPIO_IN);
     gpio_pull_down(SW4);
 
+    //init i2c
     i2c_init(OLED_I2C, OLCD_I2C_SPEED);
     gpio_set_function(OLED_SCL, GPIO_FUNC_I2C);
     gpio_set_function(OLED_SDA, GPIO_FUNC_I2C);
     gpio_pull_up(OLED_SCL);
     gpio_pull_up(OLED_SDA);
+
+    LOG_INFO("GPIO initialized");
 }
 
 float rawToBattV(uint16_t x)
@@ -129,9 +166,17 @@ float rawToBattV(uint16_t x)
 
 void setupAP()
 {
+    LOG_INFO("Creating Wifi AP..");
+
+    cyw43Init();
+
     cyw43_arch_enable_ap_mode(PILOT_AP_SSID, PILOT_AP_PASSWD, CYW43_AUTH_WPA2_AES_PSK);
 
     configNet(PILOT_IP, NETMASK, GATEWAY);
+
+    setLED(1);
+
+    LOG_INFO("Wifi AP created");
 }
 
 #endif

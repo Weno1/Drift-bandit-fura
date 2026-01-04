@@ -22,7 +22,7 @@ struct __attribute__((packed)) TlmPack
     uint16_t cmd;
 };
 
-void adc_select_gpio(uint gpio);
+void adcSelectGpio(uint gpio);
 
 void configNet(char* ip_s, char* nm_s, char* gw_s);
 

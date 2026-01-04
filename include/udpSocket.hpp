@@ -5,12 +5,16 @@
 #include "pico/util/queue.h"
 #include "lwip/udp.h"
 
+#include "logging.hpp"
+
 template <typename T>
 class UdpSocket
 {
 public:
     explicit UdpSocket(uint queueDepth = 10) : m_pcb(nullptr)
     {
+        LOG_INFO("Created socket");
+
         queue_init(&m_queue, sizeof(T), queueDepth);
     }
 
@@ -22,7 +26,10 @@ public:
 
     bool bind(uint16_t port)
     {
-        if (m_pcb) close();
+        LOG_INFO("Binding to port: %hu", port);
+
+        if (m_pcb)
+            close();
 
         cyw43_arch_lwip_begin();
 

@@ -1,5 +1,4 @@
-#ifndef CONFIG_HPP
-#define CONFIG_HPP
+#pragma once
 
 /*****************************
 
@@ -7,8 +6,8 @@ DEVICE SELECTION
 
 *****************************/
 
-//#define PILOT
-#define CAR
+#define PILOT
+//#define CAR
 
 /*****************************
 
@@ -79,6 +78,8 @@ ADVANCED CONFIG
 
 *****************************/
 
+#define CURRENT_LOG_LEVEL           LOG_LEVEL_DEBUG     // LOG_LEVEL_NONE, LOG_LEVEL_ERROR, LOG_LEVEL_WARN, LOG_LEVEL_INFO, LOG_LEVEL_DEBUG
+
 #define SD_SPI_SPEED                1'000'000
 
 #define OLCD_I2C_SPEED              400'000
@@ -88,7 +89,9 @@ ADVANCED CONFIG
 
 #define CAR_CLOCK_KHZ               176'000
 
-#define TELEMETRY_EVERY_US          100'000
+#define TELEMETRY_EVERY_MS          (1000)*  1'000
+
+#define CONNECT_TIMEOUT             20'000
 
 /*****************************
 DO NOT EDIT 
@@ -97,7 +100,5 @@ FUNCTIONS
 *****************************/
 
 #if (defined(PILOT) && defined(CAR)) || (!defined(PILOT) && !defined(CAR))
-#error "Define exactly ONE of PILOT or CAR"
+    #error "Define exactly ONE of PILOT or CAR"
 #endif
-
-#endif /* CONFIG_HPP */

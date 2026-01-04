@@ -11,6 +11,8 @@
 #include "udpSocket.hpp"
 #include "Servo.hpp"
 
+#include "logging.hpp"
+
 int main()
 {
 #ifdef CAR
@@ -18,16 +20,21 @@ int main()
 #endif
 
     stdio_init_all();
-    printf("Program staring...\n");
 
-    // Initialise the Wi-Fi chip
-    cyw43Init();
+    #if CURRENT_LOG_LEVEL == LOG_LEVEL_DEBUG
+        while (!stdio_usb_connected())
+            sleep_ms(100);
+    #endif
+
+    LOG_INFO("Program staring...");
 
 #ifdef CAR          // ----------------- CAR main function ---------------------
 
-    initGPIO();
+    LOG_INFO("Role: CAR");
 
     setupConnection();
+
+    initGPIO();
 
     Servo motor(MOTOR_SIG);
     Servo ster(STER_SIG);
@@ -42,13 +49,15 @@ int main()
 
     sock.bind(CAR_LISTEN_PORT);
 
+    uint32_t errCount = 0;
+
     absolute_time_t lastTlm = get_absolute_time();
 
     while (true)
     {
         cyw43_arch_poll();
 
-        auto packOpt = sock.getPacket();
+        std::optional<Pack> packOpt = sock.getPacket();
 
         if (packOpt.has_value())
         {
@@ -59,16 +68,22 @@ int main()
             packOpt.reset();
         }
 
-        if (absolute_time_diff_us(lastTlm, get_absolute_time()) >= TELEMETRY_EVERY_US)
+        if (absolute_time_diff_us(lastTlm, get_absolute_time()) >= TELEMETRY_EVERY_MS)
         {
             TlmPack tlm;
 
-            adc_select_gpio(BATT_V);
+            adcSelectGpio(BATT_V);
             tlm.rawBattV = adc_read();
 
             tlm.cmd = 0;    // Update required
 
             bool err = sock.send<TlmPack>(PILOT_IP, PILOT_LISTEN_PORT, tlm);
+
+            errCount += err;
+
+            lastTlm = get_absolute_time();
+
+            LOG_INFO("Telemetry sent, error count: %lu", errCount);
         }
     }
 
@@ -77,13 +92,21 @@ int main()
 #endif              // ------------------------- end ---------------------------
 #ifdef PILOT        // ----------------- PILOT main function -------------------
     
-    initGPIO();
+    LOG_INFO("Role: PILOT");
 
     setupAP();
+
+    initGPIO();
 
     UdpSocket<TlmPack> sock;
 
     sock.bind(PILOT_LISTEN_PORT);
+
+    float carBatteryVoltage = 0;
+
+    uint32_t errCount = 0;
+
+    absolute_time_t dt = get_absolute_time();
 
     while (true)
     {
@@ -91,15 +114,37 @@ int main()
 
         Pack pack;
 
-        adc_select_gpio(THROTLE_INPUT);
+        adcSelectGpio(THROTLE_INPUT);
         pack.throtle = (uint8_t) map(adc_read(), 0, 4095, 0, 255);
 
-        adc_select_gpio(STER_INPUT);
+        adcSelectGpio(STER_INPUT);
         pack.yaw = (uint8_t) map(adc_read(), 0, 4095, 0, 255);
 
         pack.cmd = 0;   //update required
 
         bool err = sock.send<Pack>(CAR_IP, CAR_LISTEN_PORT, pack);
+        errCount += err;
+
+        std::optional<TlmPack> TlmPackOpt = sock.getPacket();
+
+        if (TlmPackOpt.has_value())
+        {
+            carBatteryVoltage = rawToBattV(TlmPackOpt->rawBattV);
+
+            TlmPackOpt.reset();
+
+            LOG_INFO("Car battery voltage: %0.2f", carBatteryVoltage);
+        }
+
+        #if CURRENT_LOG_LEVEL <= LOG_LEVEL_DEBUG
+            if (absolute_time_diff_us(dt, get_absolute_time()) >= 1000000 && errCount > 0)
+            {
+                LOG_ERROR("Send error count: %lu", errCount);
+
+                dt = get_absolute_time();
+            }
+
+        #endif
     }
 
     sock.close();
