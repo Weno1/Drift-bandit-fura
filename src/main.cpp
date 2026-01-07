@@ -83,7 +83,10 @@ int main()
 
             lastTlm = get_absolute_time();
 
-            LOG_INFO("Telemetry sent, error count: %lu", errCount);
+            LOG_INFO("Telemetry sent");
+
+            if (errCount > 0)
+                LOG_WARN("Error count: %lu", errCount);
         }
     }
 

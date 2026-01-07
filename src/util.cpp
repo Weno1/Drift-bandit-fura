@@ -179,6 +179,8 @@ void setupAP()
 
     cyw43_arch_enable_ap_mode(PILOT_AP_SSID, PILOT_AP_PASSWD, CYW43_AUTH_WPA2_AES_PSK);
 
+    cyw43_arch_poll();
+
     configNet(PILOT_IP, NETMASK, GATEWAY);
 
     setLED(1);
