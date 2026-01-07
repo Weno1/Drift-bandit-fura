@@ -103,7 +103,6 @@ int main()
     sock.bind(PILOT_LISTEN_PORT);
 
     float carBatteryVoltage = 0;
-
     uint32_t errCount = 0;
 
     absolute_time_t dt = get_absolute_time();

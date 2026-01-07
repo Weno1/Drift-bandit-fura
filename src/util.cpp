@@ -15,6 +15,14 @@
 
 #include "logging.hpp"
 
+void softwareReset()
+{
+    watchdog_reboot(0, 0, 0);
+    
+    while(true)
+        tight_loop_contents();
+}
+
 void adcSelectGpio(uint gpio)
 {
     if (gpio >= 26 && gpio <= 29)
@@ -40,20 +48,15 @@ void configNet(char* ip_s, char* nm_s, char* gw_s)
 void cyw43Init()
 {
     if (cyw43_arch_init_with_country(COUNTRY))
+    {
         LOG_ERROR("Wi-Fi init failed\n");
+        softwareReset();
+    } 
 }
 
 void setLED(bool state)
 {
     cyw43_arch_gpio_put(CYW43_WL_GPIO_LED_PIN, state);
-}
-
-void softwareReset()
-{
-    watchdog_reboot(0, 0, 0);
-    
-    while(true)
-        tight_loop_contents();
 }
 
 #ifdef CAR
