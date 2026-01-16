@@ -6,8 +6,8 @@ DEVICE SELECTION
 
 *****************************/
 
-//#define PILOT
-#define CAR
+#define PILOT
+//#define CAR
 
 /*****************************
 

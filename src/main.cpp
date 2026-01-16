@@ -147,6 +147,8 @@ int main()
             }
 
         #endif
+
+        sleep_ms(1);
     }
 
     sock.close();

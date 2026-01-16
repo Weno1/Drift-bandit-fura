@@ -3,6 +3,7 @@
 #include "pico/cyw43_arch.h"
 #include "lwip/inet.h"
 #include "lwip/netif.h"
+#include "lwip/dhcp.h"
 #include "pico/stdlib.h"
 #include "hardware/adc.h"
 #include "hardware/pwm.h"
@@ -51,7 +52,7 @@ void cyw43Init()
     {
         LOG_ERROR("Wi-Fi init failed\n");
         softwareReset();
-    } 
+    }
 }
 
 void setLED(bool state)
@@ -109,9 +110,11 @@ void setupConnection()
 
     cyw43_arch_enable_sta_mode();
 
+    configNet(CAR_IP, NETMASK, GATEWAY);
+
     LOG_INFO("Connecting to Wi-Fi...");
 
-    if (cyw43_arch_wifi_connect_timeout_ms(PILOT_AP_SSID, PILOT_AP_PASSWD, CYW43_AUTH_WPA2_AES_PSK, CONNECT_TIMEOUT))
+    if (cyw43_arch_wifi_connect_blocking(PILOT_AP_SSID, PILOT_AP_PASSWD, CYW43_AUTH_WPA2_AES_PSK))
     {
         LOG_ERROR("Failed to connect.");
         softwareReset();
@@ -121,8 +124,6 @@ void setupConnection()
         setLED(1);
         LOG_INFO("Connected.");
     }
-
-    configNet(CAR_IP, NETMASK, GATEWAY);
 
     LOG_INFO("WIFI initialized");
 }
