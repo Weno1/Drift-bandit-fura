@@ -30,6 +30,11 @@ void adcSelectGpio(uint gpio)
         adc_select_input(gpio - 26);
 }
 
+float rawToBattV(uint16_t x)
+{
+    return x * (3.3f / 4096.0f) * ((BATT_V_R1 + BATT_V_R2) / BATT_V_R2);
+}
+
 void configNet(char* ip_s, char* nm_s, char* gw_s)
 {
     cyw43_arch_lwip_begin();
@@ -165,11 +170,6 @@ void initGPIO()
     gpio_pull_up(OLED_SDA);
 
     LOG_INFO("GPIO initialized");
-}
-
-float rawToBattV(uint16_t x)
-{
-    return x * (3.3f / 4096.0f) * ((BATT_V_R1 + BATT_V_R2) / BATT_V_R2);
 }
 
 void setupAP()

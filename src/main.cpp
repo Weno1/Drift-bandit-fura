@@ -83,7 +83,7 @@ int main()
 
             lastTlm = get_absolute_time();
 
-            LOG_INFO("Telemetry sent");
+            LOG_INFO("Telemetry sent, battery voltage: %.2f", rawToBattV(tlm.rawBattV));
 
             if (errCount > 0)
                 LOG_WARN("Error count: %lu", errCount);

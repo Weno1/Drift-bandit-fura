@@ -24,6 +24,8 @@ struct __attribute__((packed)) TlmPack
 
 void adcSelectGpio(uint gpio);
 
+float rawToBattV(uint16_t x);
+
 void configNet(char* ip_s, char* nm_s, char* gw_s);
 
 void cyw43Init();
@@ -38,8 +40,6 @@ void cyw43Init();
 #ifdef PILOT
 
     void initGPIO();
-
-    float rawToBattV(uint16_t x);
 
     void setupAP();
 
