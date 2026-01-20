@@ -22,6 +22,6 @@ private:
 
     uint16_t level = 0;
 
-    uint16_t min = 800, max = 2200;
+    const uint16_t min = 950, max = 2050;
 };
 
